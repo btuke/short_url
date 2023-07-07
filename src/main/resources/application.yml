@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    username: root
+    password: 123123
+    jdbc-url: jdbc:postgresql://localhost:5552/test?currentSchema=test_chema
+server:
+  port: 8080
