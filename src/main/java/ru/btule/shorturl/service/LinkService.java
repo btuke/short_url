@@ -1,12 +1,14 @@
 package ru.btule.shorturl.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
+import ru.btule.shorturl.exception.NotFoundException;
 import ru.btule.shorturl.model.LinkEntity;
 import ru.btule.shorturl.repository.LinkRepository;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.Optional;
 
 @Service
 public class LinkService {
@@ -19,15 +21,23 @@ public class LinkService {
 
     public String shorter(String sourceLink) {
         if (sourceLink.length() == 0) {
-            throw new InvalidParameterException("Wrong door");
+            throw new InvalidParameterException("Ссылка не может быть пустой");
         }
-        String shortLink = UUID.randomUUID().toString().substring(0, 10);
+
+        String shortLink = RandomStringUtils.randomAlphanumeric(10);
+
         LinkEntity link = new LinkEntity();
         link.setShortLink(shortLink);
         link.setSourceLink(sourceLink);
         link.setCreateDate(LocalDate.now());
         linkRepository.save(link);
+
         return shortLink;
     }
+
+    public String getSourceLinkByShortLink(String shortLink) throws NotFoundException {
+        Optional<LinkEntity> linkEntityOptional = linkRepository.findByShortLink(shortLink);
+        return linkEntityOptional.map(LinkEntity::getSourceLink)
+                .orElseThrow(() -> new NotFoundException("Ссылка отсутствует"));
+    }
 }
-///TODO поменять UUID (не совсем UUID) на адекватное (тоже самое без тире) NOT toString and deleting - ссылка из 40 символов / LIBRARY FROM STA$$Y Люблю этот цвет
