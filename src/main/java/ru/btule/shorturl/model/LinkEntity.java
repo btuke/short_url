@@ -1,9 +1,6 @@
 package ru.btule.shorturl.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -14,11 +11,17 @@ public class LinkEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "short_link")
     private String shortLink;
 
+    @Column(name = "source_link")
     private String sourceLink;
 
+    @Column(name = "create_date")
     private LocalDate createDate;
+
+    @Column(name = "expire_date")
+    private LocalDate expireDate;
 
     public LinkEntity() {
     }
@@ -53,5 +56,13 @@ public class LinkEntity {
 
     public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
+    }
+
+    public LocalDate getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(LocalDate expireDate) {
+        this.expireDate = expireDate;
     }
 }
