@@ -8,6 +8,8 @@ import ru.btule.shorturl.exception.CustomExceptionHandler;
 import ru.btule.shorturl.service.LinkService;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.Optional;
 
 
 @RestController
@@ -31,7 +33,8 @@ public class LinkController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createLink(@RequestBody LinkDTO linkDTO) {
-        return ResponseEntity.ok(linkService.shorter(linkDTO.getSourceLink()));
+        String shortLink = linkService.shorter(linkDTO);
+        return ResponseEntity.ok(shortLink);
     }
 }
 

@@ -2,6 +2,7 @@ package ru.btule.shorturl.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
+import ru.btule.shorturl.dto.LinkDTO;
 import ru.btule.shorturl.exception.BadUrlException;
 import ru.btule.shorturl.exception.NotFoundException;
 import ru.btule.shorturl.model.LinkEntity;
@@ -23,7 +24,13 @@ public class LinkService {
         this.linkRepository = linkRepository;
     }
 
-    public String shorter(String sourceLink) {
+    public String shorter(LinkDTO linkDTO) {
+
+        String sourceLink = linkDTO.getSourceLink();
+        LocalDate expireDate = linkDTO.getDateOfExpire();
+        boolean immortality = linkDTO.isImmortality();
+
+
         if (sourceLink.length() == 0) {
             throw new InvalidParameterException("Ссылка не может быть пустой");
         }
@@ -38,7 +45,12 @@ public class LinkService {
         link.setShortLink(shortLink);
         link.setSourceLink(sourceLink);
         link.setCreateDate(LocalDate.now());
-        link.setExpireDate(LocalDate.now().plusDays(2));
+
+        if (immortality) {
+            link.setExpireDate(LocalDate.now().plusYears(100));
+        } else {
+            link.setExpireDate(Optional.ofNullable(expireDate).orElse(LocalDate.now().plusDays(2)));
+        }
         linkRepository.save(link);
 
         return shortLink;
