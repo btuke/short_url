@@ -8,8 +8,6 @@ import ru.btule.shorturl.exception.CustomExceptionHandler;
 import ru.btule.shorturl.service.LinkService;
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.Optional;
 
 
 @RestController
