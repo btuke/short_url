@@ -1,4 +1,4 @@
-package ru.btule.shorturl;
+package ru.btule.shorturl.config;
 
 
 import com.zaxxer.hikari.HikariConfig;
@@ -21,6 +21,7 @@ import java.util.Properties;
 @ConfigurationProperties(prefix = "spring.datasource")
 @EnableJpaRepositories(basePackages = {"ru.btule.shorturl"})
 public class DataBaseConfig extends HikariConfig {
+
     @Bean
     public DataSource dataSource() {
         return new HikariDataSource(this);

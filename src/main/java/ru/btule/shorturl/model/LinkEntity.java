@@ -23,6 +23,12 @@ public class LinkEntity {
     @Column(name = "expire_date")
     private LocalDate expireDate;
 
+    @Column(name = "is_expired")
+    private Boolean isExpired;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
     public LinkEntity() {
     }
 
@@ -64,5 +70,21 @@ public class LinkEntity {
 
     public void setExpireDate(LocalDate expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public Boolean isExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(Boolean expired) {
+        isExpired = expired;
+    }
+
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

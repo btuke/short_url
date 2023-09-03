@@ -1,14 +1,18 @@
 package ru.btule.shorturl.dto;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.time.LocalDate;
 
-public class LinkDTO {
+public class LinkUpdateDTO {
 
     private String sourceLink;
 
+    private String shortLink;
+
     private LocalDate dateOfExpire;
 
-    private boolean immortality;
+    private Boolean isExpired;
 
     public String getSourceLink() {
         return sourceLink;
@@ -26,11 +30,20 @@ public class LinkDTO {
         this.dateOfExpire = dateOfExpire;
     }
 
-    public boolean isImmortality() {
-        return immortality;
+    public Boolean isExpired() {
+        return isExpired;
     }
 
-    public void setImmortality(boolean immortality) {
-        this.immortality = immortality;
+    @JsonSetter("isExpired")
+    public void setExpired(Boolean expired) {
+        isExpired = expired;
+    }
+
+    public String getShortLink() {
+        return shortLink;
+    }
+
+    public void setShortLink(String shortLink) {
+        this.shortLink = shortLink;
     }
 }

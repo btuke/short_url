@@ -1,6 +1,6 @@
 package ru.btule.shorturl.exception;
 
-public class NotFoundException extends RuntimeException{
+public class NotFoundException extends RuntimeException {
     public NotFoundException() {
     }
 

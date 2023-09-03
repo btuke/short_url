@@ -1,6 +1,6 @@
 package ru.btule.shorturl.exception;
 
-public class BadUrlException extends RuntimeException{
+public class BadUrlException extends RuntimeException {
 
     public BadUrlException() {
     }
